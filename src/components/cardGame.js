@@ -3,24 +3,29 @@ import { makeStyles } from "@mui/styles";
 import { Card, Zoom, Typography } from "@mui/material";
 
 import j1 from "../assets/fondo1.jpg";
+import sizeLetter from "../styles/fontSize";
 
-const GameCard = ({ cardData = "ESTE ES EL TITULO", i = 1 }) => {
+const GameCard = ({
+  cardData = { link: "link", title: "titulo", txt: "txt" },
+  i = 1,
+}) => {
   const classes = useStyles();
   return (
     <Zoom in={true} style={{ transitionDelay: 150 * i }}>
       <Link
-        to={`/${cardData}`}
-        state={cardData}
+        to={`/${cardData.link}`}
+        state={cardData.link}
         style={{ textDecoration: "none", height: "100%" }}
       >
         <Card elevation={5} className={classes.diagonalDiv}>
           <div id="imageDiv" className={classes.imageDiv}>
             <div id="hoverTxt" className={classes.hoverTxt}>
-              <Typography>ESTE ES EL TITULO</Typography>
+              <Typography className={classes.title}>
+                {cardData.title}
+              </Typography>
               <br />
-              <Typography id="letra" className={classes.letra}>
-                este vendria a ser una breve descripcion sobre de que se trata
-                el siguiente juego
+              <Typography id="letra" className={classes.txt}>
+                {cardData.txt}
               </Typography>
             </div>
           </div>
@@ -32,7 +37,7 @@ const GameCard = ({ cardData = "ESTE ES EL TITULO", i = 1 }) => {
 
 const useStyles = makeStyles(() => ({
   diagonalDiv: {
-    width: 220,
+    width: "40vh",
     height: "60vh",
     transform: "skewX(-6deg)",
     "&:hover #hoverTxt": {
@@ -50,6 +55,7 @@ const useStyles = makeStyles(() => ({
   },
   imageDiv: {
     height: "100%",
+    width: "100%",
     background: `url(${j1}) no-repeat`,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -67,7 +73,13 @@ const useStyles = makeStyles(() => ({
     transition: ".3s",
     transitionTimingFunction: "ease",
   },
-  letra: {
+  title: {
+    fontFamily: "Sora!important",
+    fontSize: [sizeLetter.normal, "!important"],
+  },
+  txt: {
+    fontFamily: "Sora!important",
+    fontSize: [sizeLetter.normal, "!important"],
     transform: "translateY(150%)",
     transition: ".3s",
     transitionDelay: ".1s",

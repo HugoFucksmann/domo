@@ -8,31 +8,36 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 import TypographyStyled from "../../components/typografyStyled";
 import Slide from "@mui/material/Slide";
+import sizeLetter from "../../styles/fontSize";
 
 const ModalResult = () => {
   const { handlerModalClose, dataModal, openModal } = useContext(AppContext);
   return (
     <Dialog
+      maxWidth="md"
       open={openModal}
       onClose={handlerModalClose}
       aria-labelledby="responsive-dialog-title"
       TransitionComponent={Transition}
+      PaperProps={{ style: { padding: 30, borderRadius: 15 } }}
     >
       <DialogTitle id="responsive-dialog-title">
-        <TypographyStyled style={{ fontSize: 26 }}>
+        <TypographyStyled style={{ fontSize: sizeLetter.big }}>
           Su respuesta fue {dataModal.correcto} !!
         </TypographyStyled>
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          <TypographyStyled style={{ fontSize: 18 }}>
+          <TypographyStyled style={{ fontSize: sizeLetter.normal }}>
             {dataModal.txt}
           </TypographyStyled>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handlerModalClose} autoFocus>
-          <TypographyStyled>Continuar !</TypographyStyled>
+          <TypographyStyled style={{ fontSize: sizeLetter.small }}>
+            Continuar !
+          </TypographyStyled>
         </Button>
       </DialogActions>
     </Dialog>

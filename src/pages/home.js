@@ -1,10 +1,9 @@
-import { Card, Zoom } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useContext, useEffect } from "react";
 import GameCard from "../components/cardGame";
 import { AppContext } from "../context/appContext";
 import logoM from "../assets/logoMicaela.png";
-const windowWidth = window.screen.width;
+
 const Home = () => {
   const { reStart } = useContext(AppContext);
   const classes = useStyles();
@@ -19,13 +18,31 @@ const Home = () => {
         <img src={logoM} className={classes.imgLogo} />
       </div>
       <div className={classes.divContainer}>
-        {["juego-1", "juego-2", "juego-3"].map((value, i) => (
+        {CardData.map((value, i) => (
           <GameCard key={i} cardData={value} i={i} />
         ))}
       </div>
     </div>
   );
 };
+
+const CardData = [
+  {
+    link: "juego-1",
+    title: "este es el titulo",
+    txt: "esta es una descripcion del juego",
+  },
+  {
+    link: "juego-2",
+    title: "este es el titulo",
+    txt: "esta es una descripcion del juego",
+  },
+  {
+    link: "juego-3",
+    title: "este es el titulo",
+    txt: "esta es una descripcion del juego",
+  },
+];
 
 const useStyles = makeStyles(() => ({
   bigDiv: {
@@ -39,7 +56,11 @@ const useStyles = makeStyles(() => ({
   divLogo: {
     height: "25%",
   },
-  imgLogo: { height: "35vh", width: "35vh", marginTop: -40 },
+  imgLogo: {
+    height: "40vh",
+    width: "40vh",
+    marginTop: "-5vh",
+  },
   divContainer: {
     display: "flex",
     flexDirection: "row",

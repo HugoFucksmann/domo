@@ -17,13 +17,15 @@ import TypographyStyled from "../../components/typografyStyled";
 
 import CustomizedSteppers from "../../components/styledStepper";
 import SpringTxt from "../../components/springTxt";
+import sizeLetter from "../../styles/fontSize";
+import FinalCard from "../../components/finalCard";
 
 const Game1 = () => {
   const { dataJuegoUno, activeStep, handlerModalOpen, openModal } =
     useContext(AppContext);
   const classes = useStyle();
 
-  if (dataJuegoUno[activeStep] === undefined) return <FinalScreen />;
+  if (dataJuegoUno[activeStep] === undefined) return <FinalCard />;
 
   return (
     <Grid container spacing={5}>
@@ -32,7 +34,6 @@ const Game1 = () => {
           <Card elevation={3} className={classes.pregBackg}>
             <TypographyStyled
               style={{
-                fontSize: 26,
                 letterSpacing: 1.4,
                 color: "#ededed",
               }}
@@ -40,6 +41,7 @@ const Game1 = () => {
               <SpringTxt
                 txts={dataJuegoUno[activeStep].preg}
                 open={!openModal}
+                size={sizeLetter.big}
               />
             </TypographyStyled>
           </Card>
@@ -73,7 +75,7 @@ const Game1 = () => {
                         )
                       }
                     >
-                      <TypographyStyled style={{ fontSize: "1vw" }}>
+                      <TypographyStyled style={{ fontSize: sizeLetter.small }}>
                         {data.txt}
                       </TypographyStyled>
                     </Card>
@@ -88,35 +90,11 @@ const Game1 = () => {
   );
 };
 
-const FinalScreen = () => {
-  const { score, reStart, dataJuegoUno } = useContext(AppContext);
-  const classes = useStyle();
-
-  return (
-    <Zoom in={true}>
-      <Card className={classes.resultScr}>
-        <TypographyStyled style={{ fontSize: 34 }}>
-          TERMINADO, SU PUNTUACION FUE: {score}/{dataJuegoUno.length}
-        </TypographyStyled>
-        <TypographyStyled style={{ fontSize: 22 }}>
-          felicitacion por la puntuacion, puedes seguir mejorando
-        </TypographyStyled>
-        <br />
-        <Button variant="outlined" color="secondary" onClick={() => reStart()}>
-          <TypographyStyled style={{ fontSize: 18 }}>
-            Jugar de nuevo
-          </TypographyStyled>
-        </Button>
-      </Card>
-    </Zoom>
-  );
-};
-
 const useStyle = makeStyles((theme) => ({
   pregBackg: {
     backgroundColor: theme.colores.mainSoft + "!important",
     height: "100%",
-    padding: 35,
+    padding: 45,
     display: "flex",
     alignItems: "center",
     borderRadius: "15px!important",
@@ -146,17 +124,6 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: [colores.backgSoft, "!important"],
     padding: 40,
     borderRadius: "15px!important",
-  },
-  resultScr: {
-    minHeight: 350,
-    backgroundColor: theme.colores.backgSoft + "!important",
-    borderRadius: "15px!important",
-    padding: 50,
-    display: "flex",
-    textAlign: "center",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
   },
 }));
 

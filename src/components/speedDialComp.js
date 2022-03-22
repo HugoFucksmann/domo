@@ -5,6 +5,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AutoFixHighOutlinedIcon from "@mui/icons-material/AutoFixHighOutlined";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
+import { makeStyles } from "@mui/styles";
 
 const actions = [
   { icon: <ArrowBackIcon />, name: "volver" },
@@ -13,6 +14,7 @@ const actions = [
 ];
 
 const SpeedDialComp = () => {
+  const speedClass = useStyles();
   const [open, setOpen] = useState(false);
   let navigate = useNavigate();
   return (
@@ -30,6 +32,7 @@ const SpeedDialComp = () => {
       >
         {actions.map((action) => (
           <SpeedDialAction
+            TooltipClasses={speedClass}
             tooltipOpen
             key={action.name}
             icon={action.icon}
@@ -43,5 +46,14 @@ const SpeedDialComp = () => {
     </>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  staticTooltipLabel: {
+    backgroundColor: "red",
+  },
+  tooltip: {
+    backgroundColor: "yellow",
+  },
+}));
 
 export default SpeedDialComp;

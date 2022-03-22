@@ -8,7 +8,6 @@ const TypographyStyled = (props) => {
 
         ...props.style,
       }}
-     
     >
       {props.children}
     </Typography>

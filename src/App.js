@@ -29,6 +29,14 @@ const theme = createTheme({
     backgSoft: "#f7ebff",
     backgStr: "#E7EBF0",
   },
+  overrides: {
+    MuiSpeedDialAction: {
+      staticTooltipLabel: {
+        backgroundColor: "red",
+        width: 150,
+      },
+    },
+  },
 });
 
 function App(props) {

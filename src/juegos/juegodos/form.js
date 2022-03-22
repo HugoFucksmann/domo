@@ -27,6 +27,7 @@ import { makeStyles } from "@mui/styles";
 import TypographyStyled from "../../components/typografyStyled";
 import { typography } from "@mui/system";
 import MultipleSelect from "./form/multipleSelect";
+import sizeLetter from "../../styles/fontSize";
 
 const FormStart = () => {
   const { datosPersona, handlerPersona, handlerStart } = useContext(AppContext);
@@ -50,7 +51,9 @@ const FormStart = () => {
           <Grid item md={7}>
             <Grid container spacing={2} direction="column">
               <Grid item md={12}>
-                <TypographyStyled>Edad</TypographyStyled>
+                <TypographyStyled style={{ fontSize: sizeLetter.normal }}>
+                  Edad
+                </TypographyStyled>
                 <Slider
                   defaultValue={0}
                   max={80}
@@ -66,7 +69,9 @@ const FormStart = () => {
                 />
               </Grid>
               <Grid item md={12}>
-                <TypographyStyled>Convivencia</TypographyStyled>
+                <TypographyStyled style={{ fontSize: sizeLetter.normal }}>
+                  Convivencia:
+                </TypographyStyled>
                 <FormGroup>
                   {["menores de 6", "adolecente +16", "adultos mayores"].map(
                     (op) => (
@@ -75,7 +80,6 @@ const FormStart = () => {
                         control={
                           <Checkbox
                             color="secondary"
-                            size="small"
                             onChange={(e) => {
                               if (e.target.checked)
                                 handlerPersona({
@@ -95,7 +99,12 @@ const FormStart = () => {
                           />
                         }
                         label={op}
-                        componentsProps={{ typography: { fontFamily: "Sora" } }}
+                        componentsProps={{
+                          typography: {
+                            fontFamily: "Sora",
+                            fontSize: sizeLetter.small,
+                          },
+                        }}
                       />
                     )
                   )}
@@ -114,12 +123,21 @@ const FormStart = () => {
                 borderColor: colores.mainStrong,
               }}
             >
-              <TypographyStyled>Edad: {datosPersona.edad}</TypographyStyled>
+              <TypographyStyled style={{ fontSize: sizeLetter.small }}>
+                Edad: {datosPersona.edad}
+              </TypographyStyled>
               <Divider variant="middle" />
-              <TypographyStyled>Convivencia:</TypographyStyled>
+              <TypographyStyled style={{ fontSize: sizeLetter.small }}>
+                Convivencia:
+              </TypographyStyled>
               {datosPersona.tipo &&
                 datosPersona.tipo.map((op) => (
-                  <TypographyStyled key={op}>{op}</TypographyStyled>
+                  <TypographyStyled
+                    style={{ fontSize: sizeLetter.small }}
+                    key={op}
+                  >
+                    {op}
+                  </TypographyStyled>
                 ))}
             </Card>
           </Grid>
@@ -130,7 +148,7 @@ const FormStart = () => {
               fullWidth
               variant="outlined"
               color="secondary"
-              sx={{ fontFamily: "Sora" }}
+              sx={{ fontFamily: "Sora", fontSize: sizeLetter.small }}
               onClick={() => handlerStart()}
             >
               Iniciar

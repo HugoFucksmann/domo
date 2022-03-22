@@ -20,6 +20,8 @@ import { ReactComponent as BrainSvg } from "../../assets/brain.svg";
 import TypographyStyled from "../../components/typografyStyled";
 import colores from "../../styles/colors";
 import SpringTxt from "../../components/springTxt";
+import sizeLetter from "../../styles/fontSize";
+import FinalCard from "../../components/finalCard";
 
 const screenWidth = window.innerWidth;
 
@@ -38,7 +40,7 @@ const Game2 = () => {
         </Grid>
         <Grid item md={8} className={classes.centerGrid}>
           {dataJuegoDos[activeStep] === undefined ? (
-            <FinalScreen />
+            <FinalCard />
           ) : (
             <div>
               <SpringTxt
@@ -46,38 +48,26 @@ const Game2 = () => {
                 size="2.8vw"
               />
 
-              <ButtonGroup
+              <Button
                 color="secondary"
-                size="large"
-                disableElevation
                 variant="contained"
-                style={{
-                  marginTop: 25,
-                }}
+                className={classes.btn}
                 onClick={(e) =>
-                  handlerStep(
-                    dataJuegoDos[activeStep].respuesta,
-                    e.target.value
-                  )
+                  handlerStep(dataJuegoDos[activeStep].respuesta, true)
                 }
               >
-                <Button
-                  style={{
-                    fontSize: "1.8vw",
-                  }}
-                  value={true}
-                >
-                  SI
-                </Button>
-                <Button
-                  value={false}
-                  style={{
-                    fontSize: "1.8vw",
-                  }}
-                >
-                  No
-                </Button>
-              </ButtonGroup>
+                SI
+              </Button>
+              <Button
+                color="secondary"
+                variant="contained"
+                className={classes.btn}
+                onClick={(e) =>
+                  handlerStep(dataJuegoDos[activeStep].respuesta, false)
+                }
+              >
+                No
+              </Button>
             </div>
           )}
         </Grid>
@@ -106,7 +96,7 @@ const CardGame2 = () => {
             </TypographyStyled>
           </div>
         </Grid>
-        <Grid item xs={12} className={classes.divBtn}>
+        <Grid item xs={12}>
           <Button
             variant="contained"
             color="secondary"
@@ -198,20 +188,14 @@ const useStyles = makeStyles(() => ({
     filter: "blur(0px)  invert(0%) ",
     clipPath: "ellipse(50px 60px at 0 10% 20%)",
   },
-  divBtn: {
-    display: "flex",
-    paddingBottom: 30,
-    justifyContent: "space-around",
-  },
+
   centerGrid: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
   },
-  questDiv: {
-    padding: 40,
-  },
+
   dotActive: {
     backgroundColor: "red",
   },
@@ -220,29 +204,19 @@ const useStyles = makeStyles(() => ({
 
     backgroundColor: colores.mainSoft,
   },
-  divbtns: {},
-  btn: {
-    width: 100,
-    height: 100,
-    fontSize: [40, "!important"],
 
-    borderRadius: ["15%", "!important"],
-    transition: ["transform .4s", "!important"],
-    "&:hover": {
-      transform: "scale(1.1)",
-    },
-  },
-  btn2: {
-    width: "3em",
-    height: "2em",
-    fontSize: [40, "!important"],
+  btn: {
+    width: "8vw",
+    height: "4vw",
+    fontSize: [sizeLetter.big, "!important"],
     margin: [40, "!important"],
-    borderRadius: ["15%", "!important"],
+    //borderRadius: ["15%", "!important"],
     transition: ["transform .4s", "!important"],
     "&:hover": {
       transform: "scale(1.1)",
     },
   },
+
   resultScr: {
     minHeight: 510,
     borderRadius: [15, "!important"],
