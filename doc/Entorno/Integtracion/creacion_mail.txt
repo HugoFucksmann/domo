@@ -1,0 +1,20 @@
+Estimados:
+
+Fue creado el ambiente en PHP 8.1 para la aplicación juegosmicaela en el entorno de testing.
+
+El servidor donde debe subir el código es: srvdphp10i.
+La URL de acceso es: https://dwww.santafe.gob.ar/juegosmicaela/.
+
+El código se sincroniza ejecutando: ajustarproyecto juegosmicaela.
+
+Ante cualquier duda o sugerencia puede escribirnos a aplicaciones@santafe.gob.ar.
+
+Saludos
+ 
+---
+César Portela
+cportela@santafe.gov.ar
+Dpto Aplicaciones y Servicios de Internet
+Dirección Provincial de Infraestructura Tecnológica
+Secretaría de Tecnologías para la Gestión
+Ministerio de Gestión Pública

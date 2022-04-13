@@ -1,0 +1,30 @@
+Buen Día, Solicito el 1er Despliegue del aplicativo "juegosmicaela"
+
+El proyecto a desplegar se encuentra en: https://twww.santafe.gob.ar/juegosmicaela. Se debe desplegar en la infraestructura externa de la Provincia https://www.santafe.gob.ar/juegosmicaela. Datos del aplicativo desplegado en el servidor de testing externo.
+
+servidor: srvtphp14e.santafe.gov.ar
+nombre del aplicativo: juegosmicaela
+
+Pasos para el despliegue:
+
+1- Archivo de configuración:
+
+El proyecto no requiere configuración.
+
+2- Requerimiento de DB:
+
+Ho hay requerimiento de DBA.
+
+3- Las credenciales para el usuario de testing:
+
+El proyecto no requiere de control de acceso, esta abierto a la ciudadanía.
+
+link: https://twww.santafe.gob.ar/juegosmicaela
+
+
+
+Se adjunta documental de despliegue: diagrama de despliegue, Formulario de Solicitud de entorno Productivo, pasos del despliegue
+
+Saludos.
+Gustavo.
+

@@ -1,0 +1,23 @@
+.brainContent {
+  position: absolute;
+  top: 150;
+
+  display: table;
+  margin: auto auto;
+  width: 300;
+  height: 300;
+}
+
+.innerDivBrain {
+  position: "absolute";
+  top: 0;
+  display: "table";
+  margin: " 0 auto";
+  margintop: 20;
+  marginleft: 60;
+  width: 215;
+  height: 235;
+  borderradius: "50%";
+  backgroundcolor: "#fff";
+  overflow: "hidden";
+}
