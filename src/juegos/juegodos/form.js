@@ -8,7 +8,6 @@ import {
 	Zoom,
 } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
 import Slider from '@mui/material/Slider';
 import { useContext, useState } from 'react';
 import { AppContext } from '../../context/appContext';

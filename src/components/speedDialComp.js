@@ -39,7 +39,7 @@ function instruccionesInfo(tipo) {
 		case 'JuegoUno':
 			return {
 				title: `MITOS DEL AMOR ROMÁNTICO`,
-				txt: `Uní estas afirmaciones con el mito con que está relacionada. En caso que l@s participantes elijan una opción INCORRECTA, se comunicará imposibilitando pulsar el botón que  avance a la siguiente frase. En este caso, deberá elegir otras opciones hasta dar con la correcta para avanzar. El juego exige pasar por seis frases, cada una de las cuales está unida a un “mito del amor romántico”`,
+				txt: `En caso que l@s participantes elijan una opción INCORRECTA, se comunicará imposibilitando pulsar el botón que  avance a la siguiente frase. En este caso, deberá elegir otras opciones hasta dar con la correcta para avanzar. El juego exige pasar por seis frases, cada una de las cuales está unida a un “mito del amor romántico”`,
 			};
 			break;
 		case 'JuegoDos':
@@ -53,7 +53,7 @@ function instruccionesInfo(tipo) {
 		default:
 			return {
 				title: 'LA DIVERSIDAD EN JUEGO',
-				txt: '¿De qué hablamos cuando hacemos referencia a personas LGBTIQ+? ¿Qué hay detrás de ese conjunto de letras? Este juego te invita a poner la diversidad en juego y a descubrir qué identidades y experiencias están representadas en esta sigla.',
+				txt: 'Encontraremos la sigla LGBTIQ+, cada una de las letras que la componen será un botón, del cual se desplegará una afirmación, debiendo indicar quien juegue si está de acuerdo (pulgar arriba) o en desacuerdo (pulgar abajo). El juego es lineal -es decir, hay que ir recorriendo los siete conceptos que componen la sigla. Para que jugarlo no sea siempre igual, vamos a proponer distintas afirmaciones posibles, que puedan ir variando en cada jugada.',
 			};
 			break;
 	}

@@ -3,10 +3,10 @@ import SpeedDialComp from '../../components/speedDialComp';
 import StartScreen from '../../components/startScreen';
 import { AppContext } from '../../context/appContext';
 import { startInfo } from '../../context/dataJuegoGlosario';
-import GameIndexLayout from '../../layout/gameIndexLayout';
 import ModalResult from '../juegouno/modalResult';
 
 import Game3 from './game3';
+import { isMobile } from './../../styles/isMobile';
 
 const JuegoTres = () => {
 	const { startG, handlerStartGlosario } = useContext(AppContext);
@@ -19,7 +19,11 @@ const JuegoTres = () => {
 					startFunc={handlerStartGlosario}
 				/>
 			) : (
-				<Game3 />
+				<div
+					style={{ width: '100%', marginTop: isMobile() ? '20%' : 0 }}
+				>
+					<Game3 />
+				</div>
 			)}
 
 			<ModalResult />

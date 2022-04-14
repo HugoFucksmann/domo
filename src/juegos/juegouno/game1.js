@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Grid, Zoom, Fade, Slide } from '@mui/material';
+import { Card, Grid, Zoom, Slide } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { useContext } from 'react';
 import { AppContext } from '../../context/appContext';
