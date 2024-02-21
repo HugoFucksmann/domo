@@ -4,8 +4,7 @@ const TypographyStyled = (props) => {
   return (
     <Typography
       style={{
-        fontFamily: "Sora",
-
+        fontFamily: "Poppins",
         ...props.style,
       }}
     >

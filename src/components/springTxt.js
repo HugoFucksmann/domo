@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTrail, a } from "@react-spring/web";
-
 import { makeStyles } from "@mui/styles";
 import TypographyStyled from "./typografyStyled";
 
@@ -37,25 +36,56 @@ export default function SpringTxt({
   size = "1.8vw",
   widthDiv = "100%",
   open = true,
+  color = "rgba(255, 255, 255,.8)",
+  whiteSpace = false,
+  lspacing = 1.4,
 }) {
-  let palabrasPares = txts
-    .toUpperCase()
-    .split(" ")
-    .filter((word, i) => i % 2 === 0);
-  let palabrasImpares = txts
-    .toUpperCase()
-    .split(" ")
-    .filter((word, i) => i % 2 === 1);
+  let palabrasP1,
+    palabrasP2,
+    palabrasP3,
+    palabrasP4,
+    palabrasP5 = [];
+  const words = txts.toUpperCase().split(" ");
+
+  if (words.length > 32) {
+    palabrasP1 = words.filter((word, i) => i % 5 === 0);
+    palabrasP2 = words.filter((word, i) => i % 5 === 1);
+    palabrasP3 = words.filter((word, i) => i % 5 === 2);
+    palabrasP4 = words.filter((word, i) => i % 5 === 3);
+    palabrasP5 = words.filter((word, i) => i % 5 === 4);
+  } else {
+    palabrasP1 = words.filter((word, i) => i % 4 === 0);
+    palabrasP2 = words.filter((word, i) => i % 4 === 1);
+    palabrasP3 = words.filter((word, i) => i % 4 === 2);
+    palabrasP4 = words.filter((word, i) => i % 4 === 3);
+  }
 
   return (
-    <div style={{ width: widthDiv }}>
+    <div
+      style={{
+        width: widthDiv,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Trail open={open}>
-        {palabrasPares.map((txt, i) => (
+        {palabrasP1.map((txt1, i) => (
           <TypographyStyled
-            style={{ fontSize: size, fontWeight: "bold" }}
-            key={txt}
+            style={{
+              fontSize: size,
+              fontWeight: 800,
+              constterSpacing: lspacing,
+              whiteSpace: whiteSpace,
+              color: color,
+            }}
+            key={txt1}
           >
-            {txt} {palabrasImpares[i] && palabrasImpares[i]}
+            {txt1} {palabrasP2[i] && palabrasP2[i]}{" "}
+            {palabrasP3[i] && palabrasP3[i]} {palabrasP4[i] && palabrasP4[i]}{" "}
+            {palabrasP5[i] && palabrasP5[i]}
           </TypographyStyled>
         ))}
       </Trail>

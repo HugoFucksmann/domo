@@ -1,36 +1,37 @@
 import {
   Button,
   Card,
-  CardContent,
   Checkbox,
   Divider,
-  FormControl,
   FormGroup,
-  FormLabel,
   Grid,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  TextField,
-  Typography,
   Zoom,
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import Slider from "@mui/material/Slider";
-import { useContext, useRef } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../context/appContext";
 import colores from "../../styles/colors";
-import { makeStyles } from "@mui/styles";
+import { isMobile } from "../../styles/isMobile";
 import TypographyStyled from "../../components/typografyStyled";
-import { typography } from "@mui/system";
-import MultipleSelect from "./form/multipleSelect";
+
 import sizeLetter from "../../styles/fontSize";
+import StartScreen from "../../components/startScreen";
+import { introGame2 } from "../../context/dataJuegoCerebro";
 
 const FormStart = () => {
-  const { datosPersona, handlerPersona, handlerStart } = useContext(AppContext);
+  const {
+    datosPersona,
+    handlerPersonaOp,
+    handlerEdad,
+    handlerStart,
+    game2Opciones,
+  } = useContext(AppContext);
+  const [intro, setIntro] = useState(false);
+
+  function validEdad() {
+    return datosPersona.edad > 16;
+  }
 
   function isCompleted() {
     return (
@@ -38,81 +39,110 @@ const FormStart = () => {
     );
   }
 
+  function disableCheck(i) {
+    return (
+      (datosPersona.edad === 0 && true) ||
+      (i !== 0 && !validEdad()) ||
+      (datosPersona.tipo.filter((obj) => obj.op === "c").length === 1 &&
+        i !== 1 &&
+        true) ||
+      (datosPersona.tipo.length >= 1 &&
+        datosPersona.tipo.filter((obj) => obj.op === "c").length !== 1 &&
+        i === 1 &&
+        true)
+    );
+  }
+
+  if (!intro)
+    return <StartScreen intro={introGame2} startFunc={() => setIntro(true)} />;
+
   return (
     <Zoom in={true}>
       <Card
         elevation={3}
         style={{
+          marginRight: !isMobile() && "14%",
+          marginLeft: !isMobile() && "14%",
           padding: 35,
           borderRadius: 15,
+          borderBottom: `6px solid ${colores.mainPurple}`,
         }}
       >
         <Grid container spacing={3}>
           <Grid item md={7}>
             <Grid container spacing={2} direction="column">
               <Grid item md={12}>
-                <TypographyStyled style={{ fontSize: sizeLetter.normal }}>
+                <TypographyStyled
+                  style={{
+                    fontSize: isMobile()
+                      ? sizeLetter.cellBig
+                      : sizeLetter.normal,
+                    fontWeight: "bold",
+                    color: colores.mainStrong,
+                  }}
+                >
                   Edad
                 </TypographyStyled>
-                <Slider
-                  defaultValue={0}
-                  max={80}
-                  //getAriaValueText={valuetext}
-                  color="secondary"
-                  style={{ width: "90%" }}
-                  onChange={(e) =>
-                    handlerPersona({
-                      ...datosPersona,
-                      edad: e.target.value,
-                    })
-                  }
-                />
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  <Slider
+                    disabled={datosPersona.tipo.length > 0}
+                    defaultValue={0}
+                    max={90}
+                    style={{
+                      width: "90%",
+                      marginRight: 30,
+                      color: colores.mainPurple,
+                    }}
+                    value={datosPersona.edad}
+                    onChange={(e) => handlerEdad(e.target.value)}
+                  />
+                </div>
               </Grid>
               <Grid item md={12}>
-                <TypographyStyled style={{ fontSize: sizeLetter.normal }}>
-                  Convivencia:
+                <TypographyStyled
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: isMobile()
+                      ? sizeLetter.cellBig
+                      : sizeLetter.normal,
+                    color: colores.mainStrong,
+                  }}
+                >
+                  ¿Con quiénes convivís?
                 </TypographyStyled>
                 <FormGroup>
-                  {["menores de 6", "adolecente +16", "adultos mayores"].map(
-                    (op) => (
-                      <FormControlLabel
-                        key={op}
-                        control={
-                          <Checkbox
-                            color="secondary"
-                            onChange={(e) => {
-                              if (e.target.checked)
-                                handlerPersona({
-                                  ...datosPersona,
-                                  tipo: [...datosPersona.tipo, op],
-                                });
-                              else {
-                                let filter = datosPersona.tipo.filter(
-                                  (ops) => ops !== op
-                                );
-                                handlerPersona({
-                                  ...datosPersona,
-                                  tipo: filter,
-                                });
-                              }
-                            }}
-                          />
-                        }
-                        label={op}
-                        componentsProps={{
-                          typography: {
-                            fontFamily: "Sora",
-                            fontSize: sizeLetter.small,
-                          },
-                        }}
-                      />
-                    )
-                  )}
+                  {game2Opciones.map((option, i) => (
+                    <FormControlLabel
+                      key={option.op}
+                      control={
+                        <Checkbox
+                          disabled={disableCheck(i)}
+                          style={{ color: colores.mainPurple }}
+                          onChange={(e) =>
+                            handlerPersonaOp(
+                              e.target.checked,
+                              option,
+                              datosPersona.edad
+                            )
+                          }
+                        />
+                      }
+                      label={option.txt}
+                      componentsProps={{
+                        typography: {
+                          fontFamily: "Poppins",
+                          fontSize: isMobile()
+                            ? sizeLetter.cellNormal
+                            : sizeLetter.small,
+                          color: colores.txtSecond2,
+                        },
+                      }}
+                    />
+                  ))}
                 </FormGroup>
               </Grid>
             </Grid>
           </Grid>
-
           <Grid item md={5} style={{ width: "100%" }}>
             <Card
               variant="outlined"
@@ -120,35 +150,59 @@ const FormStart = () => {
                 borderRadius: 10,
                 padding: 20,
                 textAlign: "center",
-                borderColor: colores.mainStrong,
+                borderColor: "#33035F",
               }}
             >
-              <TypographyStyled style={{ fontSize: sizeLetter.small }}>
-                Edad: {datosPersona.edad}
+              <TypographyStyled
+                style={{
+                  fontSize: isMobile()
+                    ? sizeLetter.cellSmall
+                    : sizeLetter.small,
+                }}
+              >
+                Edad:{" "}
+                <span style={{ color: colores.letterSecond }}>
+                  {datosPersona.edad}
+                </span>
               </TypographyStyled>
               <Divider variant="middle" />
-              <TypographyStyled style={{ fontSize: sizeLetter.small }}>
+              <TypographyStyled
+                style={{
+                  fontSize: isMobile()
+                    ? sizeLetter.cellSmall
+                    : sizeLetter.small,
+                }}
+              >
                 Convivencia:
               </TypographyStyled>
               {datosPersona.tipo &&
                 datosPersona.tipo.map((op) => (
                   <TypographyStyled
-                    style={{ fontSize: sizeLetter.small }}
-                    key={op}
+                    style={{
+                      fontSize: isMobile()
+                        ? sizeLetter.cellSmall
+                        : sizeLetter.small,
+                      color: colores.letterSecond,
+                    }}
+                    key={op.txt}
                   >
-                    {op}
+                    {op.txt}
                   </TypographyStyled>
                 ))}
             </Card>
           </Grid>
-
           <Grid item md={12} style={{ width: "100%" }}>
             <Button
               disabled={!isCompleted()}
               fullWidth
-              variant="outlined"
+              variant="contained"
               color="secondary"
-              sx={{ fontFamily: "Sora", fontSize: sizeLetter.small }}
+              sx={{
+                backgroundColor: [colores.mainPurple, "!important"],
+                fontWeight: "bold",
+                fontFamily: "Poppins",
+                fontSize: isMobile() ? sizeLetter.cellSmall : sizeLetter.small,
+              }}
               onClick={() => handlerStart()}
             >
               Iniciar
@@ -159,16 +213,5 @@ const FormStart = () => {
     </Zoom>
   );
 };
-
-const useStyles = makeStyles(() => ({
-  root: {
-    "&$focused": {
-      color: "#000",
-    },
-  },
-  select: {
-    borderRadius: 10,
-  },
-}));
 
 export default FormStart;

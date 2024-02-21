@@ -1,24 +1,28 @@
-import fondo from "../assets/fondo2.jpg";
-import logoM from "../assets/logosvg.svg";
-const windowWidth = window.screen.width;
+import "../styles/backgroundFall.css";
+import { isMobile } from "../styles/isMobile";
+import fondosinlogo from "../assets/fondosinlogo.svg";
+import FondoAnimado from "../layout/fondoAnimado";
+
 const BodyLayout = (props) => {
   return (
     <div
       style={{
-        backgroundImage: `url(${fondo}) `,
-        //overflow: "hidden",
+        background: !isMobile() && `url(${fondosinlogo}) no-repeat `,
+        backgroundSize: "cover",
+        backgroundPosition: "center 30%",
+        paddingRight: isMobile() ? "4%" : "10%",
+        paddingLeft: isMobile() ? "4%" : "10%",
         minHeight: "100vh",
+        overflow: "hidden",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        paddingRight: windowWidth < 600 ? "4%" : "10%",
-        paddingLeft: windowWidth < 600 ? "4%" : "10%",
-        paddingTop: windowWidth < 600 && 20,
-        paddingBottom: windowWidth < 600 && 20,
+        width: "100%",
       }}
     >
       {props.children}
+      {<FondoAnimado />}
     </div>
   );
 };

@@ -1,231 +1,257 @@
-import {
-  Card,
-  Zoom,
-  Typography,
-  Grid,
-  Button,
-  MobileStepper,
-  Grow,
-  Fade,
-  ButtonGroup,
-  CircularProgress,
-} from "@mui/material";
+import { Grid, Button, Card, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { useContext } from "react";
 import { AppContext } from "../../context/appContext";
-import { ReactComponent as BrainSvg } from "../../assets/brain.svg";
 
-import TypographyStyled from "../../components/typografyStyled";
 import colores from "../../styles/colors";
 import SpringTxt from "../../components/springTxt";
 import sizeLetter from "../../styles/fontSize";
 import FinalCard from "../../components/finalCard";
+import { isMobile } from "../../styles/isMobile";
+import "../../styles/shakeeff.css";
+import "../../styles/brain.css";
+import CardBrain from "./cardBrain";
 
-const screenWidth = window.innerWidth;
+import billete from "../../assets/iconCard/billete.svg";
+import carritoSuper from "../../assets/iconCard/carritoSuper.svg";
+import mamadera from "../../assets/iconCard/mamadera.svg";
+import plato from "../../assets/iconCard/plato.svg";
+import reloj from "../../assets/iconCard/reloj.svg";
+import ropa from "../../assets/iconCard/ropa.svg";
 
 const Game2 = () => {
-  const { dataJuegoDos, handlerStep, activeStep, score } =
-    useContext(AppContext);
-  const classes = useStyles(score);
+  const { dataJuegoDos, activeStep } = useContext(AppContext);
+  const classes = useStyles();
 
   return (
-    <Fade in={true}>
-      <Grid container spacing={3}>
-        <Grid item md={4} className={classes.centerGrid}>
-          <Card elevation={3} className={classes.brainCard}>
-            <BrainSvg className={classes.brainImg} />
-          </Card>
-        </Grid>
-        <Grid item md={8} className={classes.centerGrid}>
-          {dataJuegoDos[activeStep] === undefined ? (
-            <FinalCard />
-          ) : (
-            <div>
-              <SpringTxt
-                txts={"esta es la primer pregunta, responde cuantos son?"}
-                size="2.8vw"
-              />
-
-              <Button
-                color="secondary"
-                variant="contained"
-                className={classes.btn}
-                onClick={(e) =>
-                  handlerStep(dataJuegoDos[activeStep].respuesta, true)
-                }
-              >
-                SI
-              </Button>
-              <Button
-                color="secondary"
-                variant="contained"
-                className={classes.btn}
-                onClick={(e) =>
-                  handlerStep(dataJuegoDos[activeStep].respuesta, false)
-                }
-              >
-                No
-              </Button>
-            </div>
-          )}
-        </Grid>
+    <Grid container spacing={!isMobile() ? 3 : 0}>
+      <Grid
+        item
+        md={5}
+        xs={12}
+        className={classes.centerContent}
+        style={{ marginRight: isMobile() && 26 }}
+      >
+        <CardBrain />
       </Grid>
-    </Fade>
+      <Grid
+        item
+        md={7}
+        xs={12}
+        className={classes.centerContent}
+        style={{
+          marginTop: isMobile() ? 110 : "6%",
+        }}
+      >
+        {dataJuegoDos[activeStep] === undefined ? <FinalCard /> : <CardResp />}
+      </Grid>
+    </Grid>
   );
 };
 
-const CardGame2 = () => {
-  const classes = useStyles();
-  const { dataJuegoDos, handlerStep, activeStep } = useContext(AppContext);
+const CardResp = () => {
+  const { dataJuegoDos, score, handlerStep, activeStep, showEff, setShowEff } =
+    useContext(AppContext);
+  const classes = useStyles({ score, dataJuegoDos, activeStep });
+
+  function handleSituation(btn) {
+    setShowEff();
+    setTimeout(() => {
+      handlerStep(dataJuegoDos[activeStep].respuesta, btn);
+    }, 900);
+  }
+
   return (
-    <Card
-      elevation={3}
+    <Card className={classes.cardResp}>
+      {<BorderIcons />}
+      <div className={classes.SpringTxtRep}>
+        <SpringTxt
+          open={showEff}
+          txts={dataJuegoDos[activeStep].pregunta}
+          lspacing={0}
+          whiteSpace={true}
+          color={colores.mainStrong}
+          //color="#383838"
+          size={isMobile() ? sizeLetter.cellExtraBig : sizeLetter.Big}
+        />
+      </div>
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <Button
+          disabled={!showEff}
+          color="secondary"
+          variant="contained"
+          className={classes.btn}
+          onClick={(e) => handleSituation("true")}
+        >
+          <Typography className={classes.btnText}>SI</Typography>
+        </Button>
+        <Button
+          disabled={!showEff}
+          variant="contained"
+          className={classes.btn}
+          onClick={(e) => handleSituation("false")}
+        >
+          <Typography className={classes.btnText}>NO</Typography>
+        </Button>
+      </div>
+    </Card>
+  );
+};
+
+const BorderIcons = () => {
+  return (
+    <div
+      id="borderIcons"
       style={{
-        textAlign: "center",
-        borderRadius: 15,
-        maxWidth: 600,
+        position: "absolute",
+
+        width: "100%",
+        height: "100%",
       }}
     >
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <div className={classes.titulo}>
-            <TypographyStyled style={{ fontSize: 30, color: colores.txtLight }}>
-              {dataJuegoDos[activeStep].pregunta}
-            </TypographyStyled>
-          </div>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.btn}
-            onClick={() =>
-              handlerStep(dataJuegoDos[activeStep].respuesta, true)
-            }
-          >
-            <TypographyStyled style={{ fontSize: 40 }}>SI</TypographyStyled>
-          </Button>
-          <Button
-            className={classes.btn}
-            variant="contained"
-            color="secondary"
-            onClick={() =>
-              handlerStep(dataJuegoDos[activeStep].respuesta, false)
-            }
-          >
-            <TypographyStyled style={{ fontSize: 40 }}>NO</TypographyStyled>
-          </Button>
-        </Grid>
-        <MobileStepper
-          activeStep={activeStep}
-          variant="progress"
-          steps={4}
-          classes={useStyles}
-          position="static"
+      {iconCardData.map((conpData, i) => (
+        <div
+          key={conpData.id}
           style={{
-            width: "100%",
-            backgroundColor: "#ededed",
-            paddingLeft: "5%",
-            paddingRight: "2%",
-
-            borderColor: "red!important",
+            hidden: "true",
+            position: "absolute",
+            height: isMobile()
+              ? conpData.id.startsWith("center") === false
+                ? "12vw"
+                : 0
+              : "5vw",
+            width: isMobile() ? "12vw" : "5vw",
+            filter: `drop-shadow(1px 1px 1px #000)`,
+            left: conpData.left,
+            right: conpData.right,
+            top: conpData.top,
+            bottom: conpData.bottom,
+            margin: isMobile() ? -18 : -25,
           }}
-          LinearProgressProps={{
-            style: {
-              width: "100%",
-              height: 6,
-              borderRadius: 10,
-              backgroundColor: colores.mainSoft,
-            },
-          }}
-        />
-      </Grid>
-    </Card>
+        >
+          <img alt="icono" src={conpData.icon} height="100%" width="100%" />
+        </div>
+      ))}
+    </div>
   );
 };
 
-const FinalScreen = () => {
-  const classes = useStyles();
-  const { reStart, score } = useContext(AppContext);
-  return (
-    <Card className={classes.resultScr}>
-      <h1>TERMINADO, SU PUNTUACION FUE: {score}/10</h1>
-      <h3>felicitacion por la puntuacion, puedes seguir mejorando</h3>
-      <br />
-      <Button variant="outlined" color="secondary" onClick={() => reStart()}>
-        Jugar de nuevo
-      </Button>
-    </Card>
-  );
-};
+const iconCardData = [
+  {
+    icon: plato,
+    id: "topLeft",
+    right: null,
+    left: 0,
+    top: 0,
+    bottom: null,
+  },
+  {
+    icon: ropa,
+    id: "topRight",
+    right: 0,
+    left: null,
+    top: 0,
+    bottom: null,
+  },
+
+  {
+    icon: billete,
+    id: "downLeft",
+    right: null,
+    left: 0,
+    top: null,
+    bottom: -10,
+  },
+  {
+    icon: carritoSuper,
+    id: "downRight",
+    right: 0,
+    left: null,
+    top: null,
+    bottom: -10,
+  },
+
+  {
+    icon: mamadera,
+    id: "centerLeft",
+    right: -15,
+    left: null,
+    top: "50%",
+    down: null,
+  },
+  {
+    icon: reloj,
+    id: "centerRight",
+    left: -10,
+    right: null,
+    top: "50%",
+    down: null,
+  },
+];
 
 const useStyles = makeStyles(() => ({
-  ParentCard: {
-    minHeight: 510,
+  brainContainer: {
+    position: "relative",
+    height: isMobile() ? "30vh" : "100%",
 
+    marginLeft: isMobile() && -30,
     width: "100%",
-    display: "table-cell",
-    borderRadius: [15, "!important"],
-    textAlign: "center",
+    transition: "all 0.5s ease",
   },
-  brainCard: {
-    borderRadius: ["50%", "!important"],
-    padding: 20,
-    transition: ["all .4s", "!important"],
-    background: (score) => `linear-gradient(0deg, red ${score * 10}%, #fff 0%)`,
 
-    height: screenWidth > 1200 ? "90%" : 1250,
-    width: screenWidth > 1200 ? "90%" : 250,
+  centerContent: {
     display: "flex",
-    textAlign: "center",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
-  brainImg: {
-    filter: "blur(0px)  invert(0%) ",
-    clipPath: "ellipse(50px 60px at 0 10% 20%)",
-  },
 
-  centerGrid: {
+  cardResp: {
+    overflow: "visible!important",
+    background: "rgba(255,255,255,.9)!important",
+    paddingBottom: !isMobile() ? 30 : 15,
+    width: isMobile() ? "92%" : "96%",
+    minHeight: !isMobile() ? "64vh" : "34vh",
+    borderRadius: [10, "!important"],
     display: "flex",
+    textAlign: "center",
+    flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
+    justifyContent: "space-between",
+    filter: `drop-shadow(3px 3px 3px ${colores.mainStrongTr})`,
+    borderBottom: `6px solid ${colores.mainStrong}`,
+    //marginBottom: 12,
+    //marginLeft: 12,
+    //margin: 10,
   },
+  SpringTxtRep: {
+    height: !isMobile() ? "48vh" : "30vh",
 
-  dotActive: {
-    backgroundColor: "red",
+    display: "flex",
+    textAlign: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  titulo: {
-    padding: 35,
-
-    backgroundColor: colores.mainSoft,
-  },
-
   btn: {
-    width: "8vw",
-    height: "4vw",
-    fontSize: [sizeLetter.big, "!important"],
-    margin: [40, "!important"],
-    //borderRadius: ["15%", "!important"],
+    width: isMobile() ? "10vh" : "8vw",
+    height: isMobile() ? "4vh" : "4vw",
+
+    backgroundColor: [colores.mainStrong, "!important"],
+
+    marginRight: isMobile() ? [15, "!important"] : [35, "!important"],
+    marginLeft: isMobile() ? "4vh"[(15, "!important")] : [35, "!important"],
     transition: ["transform .4s", "!important"],
     "&:hover": {
       transform: "scale(1.1)",
     },
   },
-
-  resultScr: {
-    minHeight: 510,
-    borderRadius: [15, "!important"],
-    padding: 50,
-    display: "flex",
-    textAlign: "center",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+  btnText: {
+    fontFamily: "Poppins",
+    fontWeight: "bold!important",
+    fontSize: !isMobile()
+      ? [sizeLetter.big, "!important"]
+      : [sizeLetter.cellBig, "!important"],
   },
 }));
 

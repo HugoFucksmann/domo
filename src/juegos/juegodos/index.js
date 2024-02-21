@@ -1,29 +1,30 @@
-import { makeStyles } from "@mui/styles";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import SpeedDialComp from "../../components/speedDialComp";
 import { AppContext } from "../../context/appContext";
 import FormStart from "./form";
 import Game2 from "./game2";
+import { isMobile } from "../../styles/isMobile";
 
-const JuegoDos = () => {
-  const classes = useStyles();
+const JuegoDos = React.memo(() => {
   const { startG } = useContext(AppContext);
 
   return (
     <>
-      {!startG ? <FormStart /> : <Game2 />}
+      {!startG ? (
+        <FormStart />
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            marginTop: isMobile() ? "60%" : -50,
+          }}
+        >
+          <Game2 />
+        </div>
+      )}
       <SpeedDialComp />
     </>
   );
-};
-
-const useStyles = makeStyles(() => ({
-  select: {
-    borderRadius: 10,
-  },
-  flipCard: {
-    backgroundColor: "red",
-  },
-}));
+});
 
 export default JuegoDos;

@@ -1,0 +1,59 @@
+.curvaVioleta {
+  animation: curvaVioletaEff 8.5s linear infinite;
+  will-change: transform;
+}
+
+.lineaClara {
+  animation: lineaClaraEff 7.5s linear infinite;
+  will-change: transform;
+}
+
+.lineaRoja {
+  animation: lineaRojaEff 6.5s linear infinite;
+  will-change: transform;
+}
+
+.logoM {
+  animation: logoEff 3.5s linear infinite;
+  will-change: transform;
+}
+
+@keyframes logoEff {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes curvaVioletaEff {
+  0%,
+  100% {
+    transform: translateY(0vh);
+  }
+  50% {
+    transform: translateY(6vh);
+  }
+}
+
+@keyframes lineaClaraEff {
+  0%,
+  100% {
+    transform: translateY(0vh) scale(1);
+  }
+  50% {
+    transform: translateY(4vh) scale(1.1);
+  }
+}
+
+@keyframes lineaRojaEff {
+  0%,
+  100% {
+    transform: translateY(0vh) scale(1);
+  }
+  50% {
+    transform: translateY(4vh) scale(1.2);
+  }
+}
